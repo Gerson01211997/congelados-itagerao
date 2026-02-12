@@ -96,7 +96,7 @@ function ProductOptionsSheet({
           role="dialog"
           aria-modal="true"
           aria-labelledby="product-options-title"
-          className={`w-full max-w-md rounded-t-2xl bg-white shadow-[0_-4px_16px_rgba(0,0,0,0.2)] p-4 pb-6 transform transition-transform duration-300 ease-out pointer-events-auto ${
+          className={`w-full max-w-md rounded-t-2xl bg-white p-4 pb-6 transform transition-transform duration-300 ease-out pointer-events-auto ${
             isOpen ? "translate-y-0" : "translate-y-full"
           }`}
         >
