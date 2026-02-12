@@ -1,0 +1,48 @@
+{
+  "categories": {
+    "combos": "Combos",
+    "deditos": "Cheese sticks",
+    "empanadas": "Empanadas",
+    "panzerottis": "Panzerottis"
+  },
+  "common": {
+    "add": "Add",
+    "from": "From"
+  },
+  "variants": {
+    "refrigerated": "Frozen",
+    "fried": "Fried"
+  },
+  "productsMessages": {
+    "inCartBadge": "{quantity} in cart"
+  },
+  "modal": {
+    "selectVariant": "Choose how you want your product",
+    "quantityLabel": "Quantity",
+    "decreaseQuantity": "Decrease quantity",
+    "increaseQuantity": "Increase quantity",
+    "addWithQuantityAndTotal": "Add {quantity} for ${total} COP",
+    "selectOptionPlaceholder": "Select an option"
+  },
+  "cart": {
+    "title": "Your order",
+    "empty": "You haven't added any products to the cart yet.",
+    "subtotal": "Subtotal",
+    "total": "Total",
+    "clear": "Clear",
+    "orderByWhatsApp": "Order via WhatsApp",
+    "remove": "Remove",
+    "typeLabel": "Type",
+    "quantityLabel": "Quantity: {quantity}",
+    "decreaseQuantity": "Decrease quantity",
+    "increaseQuantity": "Increase quantity",
+    "closeAria": "Close cart"
+  },
+  "whatsapp": {
+    "greeting": "Hi, I'd like to place the following order:",
+    "orderTitle": "Order:",
+    "total": "Total",
+    "availability": "Can you confirm availability? Thanks.",
+    "itemLine": "{quantity} {name} ({variant}) - ${total}"
+  }
+}

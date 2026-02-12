@@ -1,0 +1,45 @@
+{
+  "name": "congelados-itagerao",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "biome check",
+    "format": "biome format --write",
+    "biome:fix": "npx @biomejs/biome check --write --unsafe",
+    "test": "vitest --silent=false run",
+    "test:coverage": "vitest run --coverage",
+    "typecheck": "tsc --noEmit",
+    "validate": "pnpm typecheck && pnpm lint && pnpm test",
+    "prepare": "husky install"
+  },
+  "dependencies": {
+    "next": "16.0.10",
+    "react": "19.2.1",
+    "react-dom": "19.2.1",
+    "use-sync-external-store": "^1.6.0",
+    "zustand": "^5.0.11"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.2.0",
+    "@faker-js/faker": "10.1.0",
+    "@tailwindcss/postcss": "4",
+    "@testing-library/jest-dom": "6.9.1",
+    "@testing-library/react": "16.3.1",
+    "@testing-library/user-event": "14.6.1",
+    "@types/node": "20",
+    "@types/react": "19",
+    "@types/react-dom": "19",
+    "@vitejs/plugin-react": "5.1.2",
+    "@vitest/coverage-v8": "4.0.15",
+    "husky": "9.1.7",
+    "jest-fixed-jsdom": "0.0.11",
+    "jsdom": "27.3.0",
+    "msw": "2.12.4",
+    "tailwindcss": "4",
+    "typescript": "5",
+    "vitest": "4.0.15"
+  }
+}

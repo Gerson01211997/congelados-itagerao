@@ -1,0 +1,159 @@
+{
+  "categories": {
+    "combos": "Combos",
+    "deditos": "Deditos",
+    "empanadas": "Empanadas",
+    "panzerottis": "Panzerottis"
+  },
+  "common": {
+    "add": "Agregar",
+    "from": "Desde"
+  },
+  "variants": {
+    "refrigerated": "Refrigerados",
+    "fried": "Fritos"
+  },
+  "products": {
+    "combo_1": {
+      "name": "Combo #1",
+      "description": "25 deditos y 25 empanadas"
+    },
+    "combo_2": {
+      "name": "Combo #2",
+      "description": "20 deditos, 15 empanadas y 15 ojos de buey"
+    },
+    "combo_3": {
+      "name": "Combo #3",
+      "description": "50 deditos"
+    },
+    "combo_4": {
+      "name": "Combo #4",
+      "description": "50 empanadas"
+    },
+    "combo_5": {
+      "name": "Combo #5",
+      "description": "35 deditos y 35 empanadas"
+    },
+    "combo_6": {
+      "name": "Combo #6",
+      "description": "30 deditos, 20 empanadas y 20 ojos de buey"
+    },
+    "combo_7": {
+      "name": "Combo #7",
+      "description": "70 deditos"
+    },
+    "combo_8": {
+      "name": "Combo #8",
+      "description": "70 empanadas"
+    },
+    "combo_9": {
+      "name": "Combo #9",
+      "description": "50 deditos y 50 empanadas"
+    },
+    "combo_10": {
+      "name": "Combo #10",
+      "description": "40 deditos, 30 empanadas y 30 ojos de buey"
+    },
+    "combo_11": {
+      "name": "Combo #11",
+      "description": "100 deditos"
+    },
+    "combo_12": {
+      "name": "Combo #12",
+      "description": "100 empanadas"
+    },
+    "combo_13": {
+      "name": "Combo #13",
+      "description": "75 deditos y 75 empanadas"
+    },
+    "combo_14": {
+      "name": "Combo #14",
+      "description": "50 deditos, 50 empanadas y 50 ojos de buey"
+    },
+    "combo_15": {
+      "name": "Combo #15",
+      "description": "100 deditos y 100 empanadas"
+    },
+    "combo_16": {
+      "name": "Combo #16",
+      "description": "80 deditos, 60 empanadas y 60 ojos de buey"
+    },
+
+    "deditos": {
+      "description": "Caja x12 unidades"
+    },
+    "deditos_cheese": {
+      "name": "Deditos de queso"
+    },
+    "deditos_guava": {
+      "name": "Deditos de bocadillo"
+    },
+    "deditos_mixed": {
+      "name": "Deditos mixtos"
+    },
+
+    "empanadas": {
+      "description": "Caja x8 unidades"
+    },
+    "empanadas_chicken": {
+      "name": "Empanadas de pollo"
+    },
+    "empanadas_hawaiian": {
+      "name": "Empanadas hawaianas"
+    },
+    "empanadas_ham_cheese": {
+      "name": "Empanadas de jamón y queso"
+    },
+
+    "panzerotti": {
+      "description": "Disponibles en medianos x10 y grandes x6"
+    },
+    "panzerotti_chicken": {
+      "name": "Panzerotti de pollo"
+    },
+    "panzerotti_ranch": {
+      "name": "Panzerotti ranchero"
+    },
+    "panzerotti_hawaiian": {
+      "name": "Panzerotti hawaiano"
+    },
+    "panzerotti_ham_cheese": {
+      "name": "Panzerotti de jamón y queso"
+    },
+    "panzerotti_mixed": {
+      "name": "Panzerotti mixto"
+    }
+  },
+  "productsMessages": {
+    "inCartBadge": "{quantity} en carrito"
+  },
+  "modal": {
+    "selectVariant": "Elige cómo quieres tu producto",
+    "quantityLabel": "Cantidad",
+    "decreaseQuantity": "Disminuir cantidad",
+    "increaseQuantity": "Aumentar cantidad",
+    "addWithQuantityAndTotal": "Agregar {quantity} por ${total} COP",
+    "selectOptionPlaceholder": "Selecciona una opción"
+  },
+  "cart": {
+    "title": "Tu pedido",
+    "empty": "Aún no has agregado productos al carrito.",
+    "subtotal": "Subtotal",
+    "total": "Total",
+    "clear": "Limpiar",
+    "orderByWhatsApp": "Pedir por WhatsApp",
+    "remove": "Eliminar",
+    "typeLabel": "Tipo",
+    "quantityLabel": "Cantidad: {quantity}",
+    "decreaseQuantity": "Disminuir cantidad",
+    "increaseQuantity": "Aumentar cantidad",
+    "closeAria": "Cerrar carrito"
+  },
+  "whatsapp": {
+    "greeting": "Hola, quiero hacer el siguiente pedido:",
+    "orderTitle": "Pedido:",
+    "total": "Total",
+    "availability": "¿Me confirmas disponibilidad? Gracias.",
+    "itemLine": "{quantity} {name} ({variant}) - ${total}"
+  }
+}
