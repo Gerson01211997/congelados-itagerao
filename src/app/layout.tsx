@@ -12,7 +12,7 @@ const poppins = Poppins({
 });
 
 const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://congelados-itagerao.com";
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://congelados-itagerao.vercel.app/";
 const siteName = "Congelados Itagerao";
 
 export const metadata: Metadata = {
