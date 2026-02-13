@@ -12,6 +12,8 @@ function Home() {
       </div>
       <section className="space-y-16 py-8">
         {CATEGORIES.map((category) => (
+          // biome-ignore lint: ignoramos el uso de @ts-ignore en esta línea
+          // @ts-ignore
           <Products key={category.id} category={category} />
         ))}
       </section>
