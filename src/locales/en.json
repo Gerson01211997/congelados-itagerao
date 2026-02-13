@@ -16,13 +16,29 @@
   "productsMessages": {
     "inCartBadge": "{quantity} in cart"
   },
+  "products": {
+    "flavorsLabel": "Available flavors",
+    "flavors": {
+      "deditos": "Cheese sticks",
+      "empanadas": "Empanadas",
+      "ojosDeBuey": "Bull's eyes"
+    },
+    "showMore": "+{count} more",
+    "showLess": "Show less",
+    "editOrAddMore": "Edit / add more"
+  },
   "modal": {
     "selectVariant": "Choose how you want your product",
     "quantityLabel": "Quantity",
     "decreaseQuantity": "Decrease quantity",
     "increaseQuantity": "Increase quantity",
     "addWithQuantityAndTotal": "Add {quantity} for ${total} COP",
-    "selectOptionPlaceholder": "Select an option"
+    "selectOptionPlaceholder": "Select an option",
+    "flavorsTitle": "Distribute the flavors",
+    "flavorsSummary": "{current} of {required} units",
+    "flavorsError": "Flavor distribution does not match the required quantity.",
+    "commentLabel": "Comment (optional)",
+    "commentPlaceholder": "Eg: No sauce, deliver after 6 pm"
   },
   "cart": {
     "title": "Your order",
@@ -36,13 +52,18 @@
     "quantityLabel": "Quantity: {quantity}",
     "decreaseQuantity": "Decrease quantity",
     "increaseQuantity": "Increase quantity",
-    "closeAria": "Close cart"
+    "closeAria": "Close cart",
+    "edit": "Edit",
+    "commentLabel": "Comment",
+    "deliveryNote": "Price does not include delivery."
   },
   "whatsapp": {
-    "greeting": "Hi, I'd like to place the following order:",
-    "orderTitle": "Order:",
+    "greeting": "Hi, I'd like to place an order:",
+    "itemQuantityLine": "Quantity: {quantity}",
+    "itemTypeLine": "Type: {type}",
+    "flavorsTitle": "Flavors:",
+    "commentTitle": "Comment:",
     "total": "Total",
-    "availability": "Can you confirm availability? Thanks.",
-    "itemLine": "{quantity} {name} ({variant}) - ${total}"
+    "thanks": "Thanks."
   }
 }

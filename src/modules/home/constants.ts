@@ -8,6 +8,10 @@ export const CATEGORIES = [
         nameKey: "products.combo_1.name",
         descriptionKey: "products.combo_1.description",
         contents: ["25 deditos", "25 empanadas"],
+        comboFlavors: {
+          deditos: ["Queso", "Bocadillo"],
+          empanadas: ["Pollo", "Hawaiana", "Jamón y queso"],
+        },
         prices: { refrigerated: 24000, fried: 29000 },
       },
       {
@@ -15,90 +19,90 @@ export const CATEGORIES = [
         nameKey: "products.combo_2.name",
         descriptionKey: "products.combo_2.description",
         contents: ["20 deditos", "15 empanadas", "15 ojos de buey"],
+        comboFlavors: {
+          deditos: ["Queso", "Bocadillo"],
+          empanadas: ["Pollo", "Hawaiana", "Jamón y queso"],
+        },
         prices: { refrigerated: 24000, fried: 29000 },
-      },
-      {
-        id: "combo_3",
-        nameKey: "products.combo_3.name",
-        contents: ["50 deditos"],
-        prices: { refrigerated: 24000, fried: 29000 },
-      },
-      {
-        id: "combo_4",
-        nameKey: "products.combo_4.name",
-        contents: ["50 empanadas"],
-        prices: { refrigerated: 27000, fried: 32000 },
       },
       {
         id: "combo_5",
         nameKey: "products.combo_5.name",
         contents: ["35 deditos", "35 empanadas"],
+        comboFlavors: {
+          deditos: ["Queso", "Bocadillo"],
+          empanadas: ["Pollo", "Hawaiana", "Jamón y queso"],
+        },
         prices: { refrigerated: 34000, fried: 41000 },
       },
       {
         id: "combo_6",
         nameKey: "products.combo_6.name",
         contents: ["30 deditos", "20 empanadas", "20 ojos de buey"],
+        comboFlavors: {
+          deditos: ["Queso", "Bocadillo"],
+          empanadas: ["Pollo", "Hawaiana", "Jamón y queso"],
+        },
         prices: { refrigerated: 34000, fried: 41000 },
-      },
-      {
-        id: "combo_7",
-        nameKey: "products.combo_7.name",
-        contents: ["70 deditos"],
-        prices: { refrigerated: 34000, fried: 41000 },
-      },
-      {
-        id: "combo_8",
-        nameKey: "products.combo_8.name",
-        contents: ["70 empanadas"],
-        prices: { refrigerated: 38000, fried: 45000 },
       },
       {
         id: "combo_9",
         nameKey: "products.combo_9.name",
         contents: ["50 deditos", "50 empanadas"],
+        comboFlavors: {
+          deditos: ["Queso", "Bocadillo"],
+          empanadas: ["Pollo", "Hawaiana", "Jamón y queso"],
+        },
         prices: { refrigerated: 48000, fried: 56000 },
       },
       {
         id: "combo_10",
         nameKey: "products.combo_10.name",
         contents: ["40 deditos", "30 empanadas", "30 ojos de buey"],
+        comboFlavors: {
+          deditos: ["Queso", "Bocadillo"],
+          empanadas: ["Pollo", "Hawaiana", "Jamón y queso"],
+        },
         prices: { refrigerated: 48000, fried: 56000 },
-      },
-      {
-        id: "combo_11",
-        nameKey: "products.combo_11.name",
-        contents: ["100 deditos"],
-        prices: { refrigerated: 48000, fried: 56000 },
-      },
-      {
-        id: "combo_12",
-        nameKey: "products.combo_12.name",
-        contents: ["100 empanadas"],
-        prices: { refrigerated: 53000, fried: 62000 },
       },
       {
         id: "combo_13",
         nameKey: "products.combo_13.name",
         contents: ["75 deditos", "75 empanadas"],
+        comboFlavors: {
+          deditos: ["Queso", "Bocadillo"],
+          empanadas: ["Pollo", "Hawaiana", "Jamón y queso"],
+        },
         prices: { refrigerated: 72000, fried: 87000 },
       },
       {
         id: "combo_14",
         nameKey: "products.combo_14.name",
         contents: ["50 deditos", "50 empanadas", "50 ojos de buey"],
+        comboFlavors: {
+          deditos: ["Queso", "Bocadillo"],
+          empanadas: ["Pollo", "Hawaiana", "Jamón y queso"],
+        },
         prices: { refrigerated: 72000, fried: 87000 },
       },
       {
         id: "combo_15",
         nameKey: "products.combo_15.name",
         contents: ["100 deditos", "100 empanadas"],
+        comboFlavors: {
+          deditos: ["Queso", "Bocadillo"],
+          empanadas: ["Pollo", "Hawaiana", "Jamón y queso"],
+        },
         prices: { refrigerated: 95000, fried: 112000 },
       },
       {
         id: "combo_16",
         nameKey: "products.combo_16.name",
         contents: ["80 deditos", "60 empanadas", "60 ojos de buey"],
+        comboFlavors: {
+          deditos: ["Queso", "Bocadillo"],
+          empanadas: ["Pollo", "Hawaiana", "Jamón y queso"],
+        },
         prices: { refrigerated: 95000, fried: 112000 },
       },
     ],

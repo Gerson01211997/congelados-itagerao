@@ -14,6 +14,15 @@
     "fried": "Fritos"
   },
   "products": {
+    "flavorsLabel": "Sabores disponibles",
+    "flavors": {
+      "deditos": "Deditos",
+      "empanadas": "Empanadas",
+      "ojosDeBuey": "Ojos de buey"
+    },
+    "showMore": "+{count} más",
+    "showLess": "Ver menos",
+    "editOrAddMore": "Editar / agregar más",
     "combo_1": {
       "name": "Combo #1",
       "description": "25 deditos y 25 empanadas"
@@ -78,7 +87,6 @@
       "name": "Combo #16",
       "description": "80 deditos, 60 empanadas y 60 ojos de buey"
     },
-
     "deditos": {
       "description": "Caja x12 unidades"
     },
@@ -91,7 +99,6 @@
     "deditos_mixed": {
       "name": "Deditos mixtos"
     },
-
     "empanadas": {
       "description": "Caja x8 unidades"
     },
@@ -104,7 +111,6 @@
     "empanadas_ham_cheese": {
       "name": "Empanadas de jamón y queso"
     },
-
     "panzerotti": {
       "description": "Disponibles en medianos x10 y grandes x6"
     },
@@ -127,13 +133,21 @@
   "productsMessages": {
     "inCartBadge": "{quantity} en carrito"
   },
+  "productsFlavors": {},
   "modal": {
     "selectVariant": "Elige cómo quieres tu producto",
     "quantityLabel": "Cantidad",
     "decreaseQuantity": "Disminuir cantidad",
     "increaseQuantity": "Aumentar cantidad",
     "addWithQuantityAndTotal": "Agregar {quantity} por ${total} COP",
-    "selectOptionPlaceholder": "Selecciona una opción"
+    "selectOptionPlaceholder": "Selecciona una opción",
+    "flavorsTitle": "Distribuye los sabores",
+    "flavorsSummary": "{current} de {required} unidades",
+    "flavorsError": "La suma de sabores no coincide con la cantidad requerida.",
+    "commentLabel": "Comentario (opcional)",
+    "commentPlaceholder": "Ej: Sin salsa, entregar después de las 6 pm",
+    "selectMixedFlavors": "Selecciona tus sabores",
+    "mixedFlavorsInfo": "Si eliges varios sabores, se distribuirán equitativamente."
   },
   "cart": {
     "title": "Tu pedido",
@@ -147,13 +161,18 @@
     "quantityLabel": "Cantidad: {quantity}",
     "decreaseQuantity": "Disminuir cantidad",
     "increaseQuantity": "Aumentar cantidad",
-    "closeAria": "Cerrar carrito"
+    "closeAria": "Cerrar carrito",
+    "edit": "Editar",
+    "commentLabel": "Comentario",
+    "deliveryNote": "El precio no incluye el domicilio."
   },
   "whatsapp": {
-    "greeting": "Hola, quiero hacer el siguiente pedido:",
-    "orderTitle": "Pedido:",
+    "greeting": "Hola, quiero hacer un pedido:",
+    "itemQuantityLine": "Cantidad: {quantity}",
+    "itemTypeLine": "Tipo: {type}",
+    "flavorsTitle": "Sabores:",
+    "commentTitle": "Comentario:",
     "total": "Total",
-    "availability": "¿Me confirmas disponibilidad? Gracias.",
-    "itemLine": "{quantity} {name} ({variant}) - ${total}"
+    "thanks": "Gracias."
   }
 }

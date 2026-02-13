@@ -9,16 +9,21 @@ import {
   useCartItems,
   useCartTotals,
 } from "@/store/cart.store";
-import { memo, useMemo } from "react";
+import { memo, useMemo, useState } from "react";
 import { useTranslations } from "@/hooks/useTranslations";
-import { buildWhatsAppMessage } from "@/lib/buildWhatsAppMessage";
+import { buildWhatsAppMessage, buildWhatsAppUrl } from "@/lib/buildWhatsAppMessage";
+import ProductOptionsSheet from "../products/card/ProductOptionsSheet";
+import { findProductById } from "../products/utils";
 
 function CartSidePanel() {
   const t = useTranslations();
   const isOpen = useCartIsOpen();
   const items = useCartItems();
   const { subtotal, total } = useCartTotals();
-  const { closeCart, clearCart, removeItem, updateQuantity } = useCartActions();
+  const { closeCart, clearCart, removeFromCart, increaseQuantity, decreaseQuantity, updateCartItem } =
+    useCartActions();
+
+  const [editingItemId, setEditingItemId] = useState<string | null>(null);
 
   const handleOverlayClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (event.target === event.currentTarget) {
@@ -31,11 +36,18 @@ function CartSidePanel() {
   const whatsappUrl = useMemo(() => {
     if (!hasItems) return "#";
     const message = buildWhatsAppMessage(items, total, t);
-    const phone = process.env.NEXT_PUBLIC_WHATSAPP_PHONE ?? "";
-    const baseUrl = "https://wa.me";
-    const phonePath = phone ? `/${phone}` : "";
-    return `${baseUrl}${phonePath}?text=${encodeURIComponent(message)}`;
+    return buildWhatsAppUrl(message);
   }, [hasItems, items, total, t]);
+
+  const editingItem = useMemo(() => {
+    if (editingItemId == null) return null;
+    return items.find((item) => item.cartItemId === editingItemId) ?? null;
+  }, [editingItemId, items]);
+
+  const editingProduct = useMemo(() => {
+    if (!editingItem) return null;
+    return findProductById(editingItem.productId);
+  }, [editingItem]);
 
   return (
     <>
@@ -78,9 +90,9 @@ function CartSidePanel() {
 
             {hasItems && (
               <ul className="space-y-3">
-                {items.map((item, index) => (
+                {items.map((item) => (
                   <li
-                    key={`${item.id}-${item.variant}-${index}`}
+                    key={item.cartItemId}
                     className="flex items-start justify-between rounded-xl bg-[#F6EEE7] px-3 py-3"
                   >
                     <div className="flex flex-1 flex-col gap-1">
@@ -88,13 +100,22 @@ function CartSidePanel() {
                         <span className="text-sm font-semibold text-secondary">
                           {item.name}
                         </span>
-                        <button
-                          type="button"
-                          onClick={() => removeItem(item.id, item.variant)}
-                          className="text-xs text-red-500 hover:underline"
-                        >
-                          {t("cart.remove")}
-                        </button>
+                        <div className="flex items-center gap-2">
+                          <button
+                            type="button"
+                            onClick={() => setEditingItemId(item.cartItemId)}
+                            className="text-xs text-blue-600 hover:underline"
+                          >
+                            {t("cart.edit")}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => removeFromCart(item.cartItemId)}
+                            className="text-xs text-red-500 hover:underline"
+                          >
+                            {t("cart.remove")}
+                          </button>
+                        </div>
                       </div>
 
                       <p className="text-xs text-secondary">
@@ -102,19 +123,49 @@ function CartSidePanel() {
                           {t("cart.typeLabel")}
                           {": "}
                         </span>
-                        {item.variantLabel}
+                        {t(`variants.${item.priceType}`)}
                       </p>
+
+                      {item.selectedFlavors && (
+                        <div className="mt-1 text-[11px] text-secondary space-y-1">
+                          {Object.entries(item.selectedFlavors).map(
+                            ([group, flavors]) => {
+                              const groupLabel = group === "default" ? "" : t(`products.flavors.${group}`);
+                              return (
+                                <div key={group} className="flex flex-wrap gap-1">
+                                  {groupLabel && (
+                                    <span className="font-semibold">
+                                      {groupLabel}
+                                      {": "}
+                                    </span>
+                                  )}
+                                  {Object.entries(flavors).map(([flavor, qty]) => (
+                                    <span
+                                      key={flavor}
+                                      className="inline-flex items-center rounded-full bg-[#F6EEE7] px-2 py-0.5"
+                                    >
+                                      {flavor} ({qty})
+                                    </span>
+                                  ))}
+                                </div>
+                              );
+                            },
+                          )}
+                        </div>
+                      )}
+
+                      {item.comment && (
+                        <p className="mt-1 text-[11px] text-[#8C5A3A] italic">
+                          {t("cart.commentLabel")}: "{item.comment}"
+                        </p>
+                      )}
 
                       <div className="flex items-center justify-between gap-2">
                         <div className="inline-flex items-center gap-2 rounded-full bg-white px-2 py-1 text-xs font-medium text-secondary">
                           <button
                             type="button"
                             onClick={() =>
-                              updateQuantity(
-                                item.id,
-                                item.variant,
-                                item.quantity - 1,
-                              )
+                              decreaseQuantity(item.cartItemId)
                             }
                             className="h-6 w-6 rounded-full bg-[#E5D3C3] text-center text-base leading-6"
                             aria-label={t("cart.decreaseQuantity")}
@@ -125,11 +176,7 @@ function CartSidePanel() {
                           <button
                             type="button"
                             onClick={() =>
-                              updateQuantity(
-                                item.id,
-                                item.variant,
-                                item.quantity + 1,
-                              )
+                              increaseQuantity(item.cartItemId)
                             }
                             className="h-6 w-6 rounded-full bg-[#E5D3C3] text-center text-base leading-6"
                             aria-label={t("cart.increaseQuantity")}
@@ -168,6 +215,10 @@ function CartSidePanel() {
               </span>
             </div>
 
+            <p className="text-xs text-gray-500 mt-2">
+              {t("cart.deliveryNote")}
+            </p>
+
             <div className="flex gap-2">
               <button
                 type="button"
@@ -196,6 +247,23 @@ function CartSidePanel() {
           </div>
         </div>
       </div>
+      {editingProduct && editingItem && (
+        <ProductOptionsSheet
+          isOpen={editingItemId != null}
+          onClose={() => setEditingItemId(null)}
+          product={editingProduct}
+          isCombo={!!editingProduct.comboFlavors}
+          initialCartItem={editingItem}
+          onSubmit={(payload) => {
+            updateCartItem(editingItem.cartItemId, {
+              quantity: payload.quantity,
+              selectedFlavors: payload.selectedFlavors,
+              comment: payload.comment,
+            });
+            setEditingItemId(null);
+          }}
+        />
+      )}
     </>
   );
 }

@@ -41,7 +41,7 @@ function ProductsSection({ category }: ProductsSectionProps) {
         className="
     flex gap-4 overflow-x-auto pb-2
     sm:grid sm:overflow-visible
-    sm:grid-cols-[repeat(auto-fill,250px)]
+    sm:grid-cols-[repeat(auto-fill,260px)]
 sm:justify-start
     
   "

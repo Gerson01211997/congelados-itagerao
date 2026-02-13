@@ -5,26 +5,21 @@ import { createJSONStorage, persist } from "zustand/middleware";
 import { useStoreWithEqualityFn } from "zustand/traditional";
 import { shallow } from "zustand/shallow";
 
-export type CartItemId = string;
+export type PriceType = "refrigerated" | "fried";
 
-export type CartItemVariant = "fried" | "refrigerated";
-
-export interface CartItem {
-  id: CartItemId;
-  name: string;
-  variant: CartItemVariant;
-  variantLabel: string;
-  unitPrice: number;
-  quantity: number;
+export interface SelectedFlavors {
+  [group: string]: Record<string, number>;
 }
 
-export interface CartItemInput {
-  id: CartItemId;
+export interface CartItem {
+  cartItemId: string;
+  productId: string;
   name: string;
-  variant: CartItemVariant;
-  variantLabel: string;
+  priceType: PriceType;
+  quantity: number;
   unitPrice: number;
-  quantity?: number;
+  selectedFlavors?: SelectedFlavors;
+  comment?: string;
 }
 
 interface CartState {
@@ -33,15 +28,12 @@ interface CartState {
   total: number;
   itemCount: number;
   isOpen: boolean;
-  addItem: (item: CartItemInput) => void;
-  removeItem: (itemId: CartItemId, variant: CartItemVariant) => void;
-  updateQuantity: (
-    itemId: CartItemId,
-    variant: CartItemVariant,
-    quantity: number,
-  ) => void;
-  incrementItem: (itemId: CartItemId) => void;
-  decrementItem: (itemId: CartItemId) => void;
+
+  addToCart: (item: Omit<CartItem, "cartItemId">) => void;
+  updateCartItem: (cartItemId: string, changes: Partial<CartItem>) => void;
+  removeFromCart: (cartItemId: string) => void;
+  increaseQuantity: (cartItemId: string) => void;
+  decreaseQuantity: (cartItemId: string) => void;
   clearCart: () => void;
   openCart: () => void;
   closeCart: () => void;
@@ -56,11 +48,13 @@ const calculateTotals = (items: CartItem[]) => {
 
   const itemCount = items.reduce((acc, item) => acc + item.quantity, 0);
 
-  // Punto único para aplicar impuestos, descuentos, etc.
   const total = subtotal;
 
   return { subtotal, total, itemCount };
 };
+
+const createCartItemId = (productId: string, priceType: PriceType) =>
+  `${productId}__${priceType}__${typeof crypto !== "undefined" ? crypto.randomUUID() : Math.random().toString(36).slice(2)}`;
 
 const createCartSlice = (
   set: (updater: (state: CartState) => CartState | Partial<CartState>) => void,
@@ -71,34 +65,18 @@ const createCartSlice = (
     total: 0,
     itemCount: 0,
     isOpen: false,
-    addItem: (input: CartItemInput) =>
+
+    addToCart: (input) =>
       set((state) => {
-        const quantityToAdd = input.quantity ?? 1;
-        const existingIndex = state.items.findIndex(
-          (item) => item.id === input.id && item.variant === input.variant,
-        );
+        const cartItemId = createCartItemId(input.productId, input.priceType);
 
-        let nextItems: CartItem[];
-
-        if (existingIndex === -1) {
-          nextItems = [
-            ...state.items,
-            {
-              id: input.id,
-              name: input.name,
-              variant: input.variant,
-              variantLabel: input.variantLabel,
-              unitPrice: input.unitPrice,
-              quantity: quantityToAdd,
-            },
-          ];
-        } else {
-          nextItems = state.items.map((item, index) =>
-            index === existingIndex
-              ? { ...item, quantity: item.quantity + quantityToAdd }
-              : item,
-          );
-        }
+        const nextItems: CartItem[] = [
+          ...state.items,
+          {
+            ...input,
+            cartItemId,
+          },
+        ];
 
         const derived = calculateTotals(nextItems);
 
@@ -108,55 +86,26 @@ const createCartSlice = (
           ...derived,
         };
       }),
-    removeItem: (itemId: CartItemId, variant: CartItemVariant) =>
-      set((state) => {
-        const nextItems = state.items.filter(
-          (item) => !(item.id === itemId && item.variant === variant),
-        );
-        const derived = calculateTotals(nextItems);
 
-        return {
-          ...state,
-          items: nextItems,
-          ...derived,
-        };
-      }),
-    updateQuantity: (
-      itemId: CartItemId,
-      variant: CartItemVariant,
-      quantity: number,
-    ) =>
-      set((state) => {
-        const index = state.items.findIndex(
-          (item) => item.id === itemId && item.variant === variant,
-        );
-
-        if (index === -1) {
-          return state;
-        }
-
-        let nextItems: CartItem[];
-
-        if (quantity <= 0) {
-          nextItems = state.items.filter((_, idx) => idx !== index);
-        } else {
-          nextItems = state.items.map((item, idx) =>
-            idx === index ? { ...item, quantity } : item,
-          );
-        }
-
-        const derived = calculateTotals(nextItems);
-
-        return {
-          ...state,
-          items: nextItems,
-          ...derived,
-        };
-      }),
-    incrementItem: (itemId: CartItemId) =>
+    updateCartItem: (cartItemId, changes) =>
       set((state) => {
         const nextItems = state.items.map((item) =>
-          item.id === itemId ? { ...item, quantity: item.quantity + 1 } : item,
+          item.cartItemId === cartItemId ? { ...item, ...changes } : item,
+        );
+
+        const derived = calculateTotals(nextItems);
+
+        return {
+          ...state,
+          items: nextItems,
+          ...derived,
+        };
+      }),
+
+    removeFromCart: (cartItemId) =>
+      set((state) => {
+        const nextItems = state.items.filter(
+          (item) => item.cartItemId !== cartItemId,
         );
         const derived = calculateTotals(nextItems);
 
@@ -166,11 +115,24 @@ const createCartSlice = (
           ...derived,
         };
       }),
-    decrementItem: (itemId: CartItemId) =>
+
+    increaseQuantity: (cartItemId) =>
+      set((state) => {
+        const nextItems = state.items.map((item) =>
+          item.cartItemId === cartItemId
+            ? { ...item, quantity: item.quantity + 1 }
+            : item,
+        );
+        const derived = calculateTotals(nextItems);
+
+        return { ...state, items: nextItems, ...derived };
+      }),
+
+    decreaseQuantity: (cartItemId) =>
       set((state) => {
         const nextItems = state.items
           .map((item) =>
-            item.id === itemId
+            item.cartItemId === cartItemId
               ? { ...item, quantity: item.quantity - 1 }
               : item,
           )
@@ -178,12 +140,9 @@ const createCartSlice = (
 
         const derived = calculateTotals(nextItems);
 
-        return {
-          ...state,
-          items: nextItems,
-          ...derived,
-        };
+        return { ...state, items: nextItems, ...derived };
       }),
+
     clearCart: () =>
       set((state) => ({
         ...state,
@@ -192,6 +151,7 @@ const createCartSlice = (
         total: 0,
         itemCount: 0,
       })),
+
     openCart: () => set((state) => ({ ...state, isOpen: true })),
     closeCart: () => set((state) => ({ ...state, isOpen: false })),
     toggleCart: () => set((state) => ({ ...state, isOpen: !state.isOpen })),
@@ -201,7 +161,6 @@ export const useCartStore = create<CartState>()(
   persist((set) => createCartSlice(set), {
     name: "cart-store",
     storage: createJSONStorage(() => localStorage),
-    // Evitamos persistir estado de UI como isOpen
     partialize: (state) => ({
       items: state.items,
       subtotal: state.subtotal,
@@ -211,7 +170,7 @@ export const useCartStore = create<CartState>()(
   }),
 );
 
-// Selectores especializados para evitar re-renders innecesarios
+// Selectores
 
 export const useCartItems = () => useCartStore((state) => state.items);
 
@@ -219,13 +178,17 @@ export const useCartItemCount = () => useCartStore((state) => state.itemCount);
 
 export const useCartIsOpen = () => useCartStore((state) => state.isOpen);
 
-export const useCartItemQuantity = (itemId: CartItemId) =>
-  useCartStore((state) => {
-    const totalQuantity = state.items
-      .filter((cartItem) => cartItem.id === itemId)
-      .reduce((acc, item) => acc + item.quantity, 0);
-    return totalQuantity;
-  });
+export const useProductQuantity = (productId: string) =>
+  useCartStore((state) =>
+    state.items
+      .filter((item) => item.productId === productId)
+      .reduce((acc, item) => acc + item.quantity, 0),
+  );
+
+export const useHasProductInCart = (productId: string) =>
+  useCartStore((state) =>
+    state.items.some((item) => item.productId === productId),
+  );
 
 export const useCartTotals = () =>
   useStoreWithEqualityFn(
@@ -241,11 +204,11 @@ export const useCartActions = () =>
   useStoreWithEqualityFn(
     useCartStore,
     (state) => ({
-      addItem: state.addItem,
-      removeItem: state.removeItem,
-      updateQuantity: state.updateQuantity,
-      incrementItem: state.incrementItem,
-      decrementItem: state.decrementItem,
+      addToCart: state.addToCart,
+      updateCartItem: state.updateCartItem,
+      removeFromCart: state.removeFromCart,
+      increaseQuantity: state.increaseQuantity,
+      decreaseQuantity: state.decreaseQuantity,
       clearCart: state.clearCart,
       openCart: state.openCart,
       closeCart: state.closeCart,

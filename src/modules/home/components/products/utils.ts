@@ -1,4 +1,5 @@
-import type { PriceVariant } from "./types";
+import type { PriceVariant, ProductItem } from "./types";
+import { CATEGORIES } from "@/modules/home/constants";
 
 export function getFromPrice(prices: PriceVariant): number {
   const refrigerated = prices.refrigerated;
@@ -8,4 +9,12 @@ export function getFromPrice(prices: PriceVariant): number {
   }
 
   return Math.min(...Object.values(refrigerated));
+}
+
+export function findProductById(productId: string): ProductItem | null {
+  for (const category of CATEGORIES) {
+    const product = category.items.find((item) => item.id === productId);
+    if (product) return product;
+  }
+  return null;
 }
