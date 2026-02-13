@@ -14,6 +14,9 @@ export function getFromPrice(prices: PriceVariant): number {
 export function findProductById(productId: string): ProductItem | null {
   for (const category of CATEGORIES) {
     const product = category.items.find((item) => item.id === productId);
+
+    // biome-ignore lint: ignoramos el uso de @ts-ignore en esta línea
+    // @ts-ignore
     if (product) return product;
   }
   return null;

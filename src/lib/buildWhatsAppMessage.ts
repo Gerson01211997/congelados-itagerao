@@ -54,6 +54,6 @@ export function buildWhatsAppMessage(
 }
 
 export function buildWhatsAppUrl(message: string): string {
-  const phone = "573004171629";
+  const phone = "3005730069";
   return `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(message)}`;
 }
