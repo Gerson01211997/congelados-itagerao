@@ -18,7 +18,14 @@
     "flavors": {
       "deditos": "Deditos",
       "empanadas": "Empanadas",
-      "ojosDeBuey": "Ojos de buey"
+      "ojosDeBuey": "Ojos de buey",
+      "cheese":"Queso",
+      "guava": "Bocadillo",
+      "mixed": "Mixtos",
+      "chicken": "Pollo",
+      "hawaiian": "Hawaiana",
+      "ham_cheese": "Jamón y queso",
+      "ranch": "Ranchero"
     },
     "showMore": "+{count} más",
     "showLess": "Ver menos",

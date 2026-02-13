@@ -46,9 +46,7 @@ export function buildWhatsAppMessage(
     lines.push("");
   });
 
-  lines.push(
-    `${t("whatsapp.total")}: $${total.toLocaleString("es-CO")} COP`,
-  );
+  lines.push(`${t("whatsapp.total")}: $${total.toLocaleString("es-CO")} COP`);
   lines.push("");
   lines.push(t("whatsapp.thanks"));
 
@@ -56,6 +54,6 @@ export function buildWhatsAppMessage(
 }
 
 export function buildWhatsAppUrl(message: string): string {
-  const phone = "57300417XXXX";
-  return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+  const phone = "573004171629";
+  return `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(message)}`;
 }

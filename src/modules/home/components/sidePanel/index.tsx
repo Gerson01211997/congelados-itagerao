@@ -11,7 +11,10 @@ import {
 } from "@/store/cart.store";
 import { memo, useMemo, useState } from "react";
 import { useTranslations } from "@/hooks/useTranslations";
-import { buildWhatsAppMessage, buildWhatsAppUrl } from "@/lib/buildWhatsAppMessage";
+import {
+  buildWhatsAppMessage,
+  buildWhatsAppUrl,
+} from "@/lib/buildWhatsAppMessage";
 import ProductOptionsSheet from "../products/card/ProductOptionsSheet";
 import { findProductById } from "../products/utils";
 
@@ -20,8 +23,14 @@ function CartSidePanel() {
   const isOpen = useCartIsOpen();
   const items = useCartItems();
   const { subtotal, total } = useCartTotals();
-  const { closeCart, clearCart, removeFromCart, increaseQuantity, decreaseQuantity, updateCartItem } =
-    useCartActions();
+  const {
+    closeCart,
+    clearCart,
+    removeFromCart,
+    increaseQuantity,
+    decreaseQuantity,
+    updateCartItem,
+  } = useCartActions();
 
   const [editingItemId, setEditingItemId] = useState<string | null>(null);
 
@@ -130,23 +139,31 @@ function CartSidePanel() {
                         <div className="mt-1 text-[11px] text-secondary space-y-1">
                           {Object.entries(item.selectedFlavors).map(
                             ([group, flavors]) => {
-                              const groupLabel = group === "default" ? "" : t(`products.flavors.${group}`);
+                              const groupLabel =
+                                group === "default"
+                                  ? ""
+                                  : t(`products.flavors.${group}`);
                               return (
-                                <div key={group} className="flex flex-wrap gap-1">
+                                <div
+                                  key={group}
+                                  className="flex flex-wrap gap-1"
+                                >
                                   {groupLabel && (
                                     <span className="font-semibold">
                                       {groupLabel}
                                       {": "}
                                     </span>
                                   )}
-                                  {Object.entries(flavors).map(([flavor, qty]) => (
-                                    <span
-                                      key={flavor}
-                                      className="inline-flex items-center rounded-full bg-[#F6EEE7] px-2 py-0.5"
-                                    >
-                                      {flavor} ({qty})
-                                    </span>
-                                  ))}
+                                  {Object.entries(flavors).map(
+                                    ([flavor, qty]) => (
+                                      <span
+                                        key={flavor}
+                                        className="inline-flex items-center rounded-full bg-[#F6EEE7] px-2 py-0.5"
+                                      >
+                                        {flavor} ({qty})
+                                      </span>
+                                    ),
+                                  )}
                                 </div>
                               );
                             },
@@ -164,9 +181,7 @@ function CartSidePanel() {
                         <div className="inline-flex items-center gap-2 rounded-full bg-white px-2 py-1 text-xs font-medium text-secondary">
                           <button
                             type="button"
-                            onClick={() =>
-                              decreaseQuantity(item.cartItemId)
-                            }
+                            onClick={() => decreaseQuantity(item.cartItemId)}
                             className="h-6 w-6 rounded-full bg-[#E5D3C3] text-center text-base leading-6"
                             aria-label={t("cart.decreaseQuantity")}
                           >
@@ -175,9 +190,7 @@ function CartSidePanel() {
                           <span>{item.quantity}</span>
                           <button
                             type="button"
-                            onClick={() =>
-                              increaseQuantity(item.cartItemId)
-                            }
+                            onClick={() => increaseQuantity(item.cartItemId)}
                             className="h-6 w-6 rounded-full bg-[#E5D3C3] text-center text-base leading-6"
                             aria-label={t("cart.increaseQuantity")}
                           >

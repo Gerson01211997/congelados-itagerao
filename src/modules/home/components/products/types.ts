@@ -9,11 +9,17 @@ export type ComboFlavors = {
   ojos_de_buey?: string[];
 };
 
+export interface contentDetail {
+  name: string;
+  quantity: number;
+  flavors?: string[];
+}
+
 export interface ProductItem {
   id: string;
   nameKey: string;
   descriptionKey?: string;
-  contents?: string[];
+  contents?: contentDetail[];
   /** Sabores para productos simples */
   flavors?: string[];
   /** Sabores agrupados por tipo para combos */
